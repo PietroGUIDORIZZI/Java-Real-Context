@@ -1,7 +1,7 @@
 package Chapter1;
 
 
-public class E1 {
+public class BoasVindas {
 
 
         static void main(String[] args) {
