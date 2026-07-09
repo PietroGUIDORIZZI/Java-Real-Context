@@ -16,13 +16,17 @@ public class SistemaCaixa {
         String nomeProduto = "Caderno Universitário";
         double precoUnitario = 24.90;
         int quantidade = 3;
+        int percentualDesconto = 10; // desconto promocional do dia
 
         double subtotal = precoUnitario * quantidade;
-        double total = subtotal + (subtotal * TAXA_SERVICO);
+        double valorDesconto = subtotal * (percentualDesconto / 100.0);
+        double subtotalComDesconto = subtotal - valorDesconto;
+        double total = subtotalComDesconto + (subtotalComDesconto * TAXA_SERVICO);
 
         System.out.println("Empresa: " + NOME_EMPRESA);
         System.out.println("Produto: " + nomeProduto);
         System.out.printf("Subtotal: R$ %.2f%n", subtotal);
+        System.out.printf("Desconto (%d%%): R$ %.2f%n", percentualDesconto, valorDesconto);
         System.out.printf("Total com taxa de serviço: R$ %.2f%n", total);
     }
 }
