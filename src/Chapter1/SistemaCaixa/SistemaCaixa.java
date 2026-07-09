@@ -1,5 +1,8 @@
 package Chapter1.SistemaCaixa;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  *Header do Sistema
  * Hardcoded
@@ -11,22 +14,24 @@ public class SistemaCaixa {
         System.out.println("==================================");
 
         final String NOME_EMPRESA = "TechNova Sistemas";
-        final double TAXA_SERVICO = 0.05;
+        final BigDecimal TAXA_SERVICO = new BigDecimal("0.05");
 
         String nomeProduto = "Caderno Universitário";
-        double precoUnitario = 24.90;
-        int quantidade = 3;
-        int percentualDesconto = 10; // desconto promocional do dia
+        BigDecimal precoUnitario = new BigDecimal("24.90");
+        BigDecimal quantidade = new BigDecimal("3");
+        BigDecimal percentualDesconto = new BigDecimal("0.10"); // 10%
 
-        double subtotal = precoUnitario * quantidade;
-        double valorDesconto = subtotal * (percentualDesconto / 100.0);
-        double subtotalComDesconto = subtotal - valorDesconto;
-        double total = subtotalComDesconto + (subtotalComDesconto * TAXA_SERVICO);
+        BigDecimal subtotal = precoUnitario.multiply(quantidade);
+        BigDecimal valorDesconto = subtotal.multiply(percentualDesconto);
+        BigDecimal subtotalComDesconto = subtotal.subtract(valorDesconto);
+        BigDecimal valorTaxa = subtotalComDesconto.multiply(TAXA_SERVICO);
+        BigDecimal total = subtotalComDesconto.add(valorTaxa)
+                .setScale(2, RoundingMode.HALF_UP);
 
         System.out.println("Empresa: " + NOME_EMPRESA);
         System.out.println("Produto: " + nomeProduto);
-        System.out.printf("Subtotal: R$ %.2f%n", subtotal);
-        System.out.printf("Desconto (%d%%): R$ %.2f%n", percentualDesconto, valorDesconto);
-        System.out.printf("Total com taxa de serviço: R$ %.2f%n", total);
+        System.out.println("Subtotal: R$ " + subtotal.setScale(2, RoundingMode.HALF_UP));
+        System.out.println("Desconto (10%): R$ " + valorDesconto.setScale(2, RoundingMode.HALF_UP));
+        System.out.println("Total com taxa de serviço: R$ " + total);
     }
 }
