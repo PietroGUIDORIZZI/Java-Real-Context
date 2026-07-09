@@ -2,6 +2,7 @@ package Chapter1.SistemaCaixa;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Scanner;
 
 /**
  *Header do Sistema
@@ -9,17 +10,25 @@ import java.math.RoundingMode;
  */
 public class SistemaCaixa {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
         System.out.println("==================================");
         System.out.println("   SISTEMA DE CAIXA - TECHNOVA");
         System.out.println("==================================");
 
-        final String NOME_EMPRESA = "TechNova Sistemas";
         final BigDecimal TAXA_SERVICO = new BigDecimal("0.05");
 
-        String nomeProduto = "Caderno Universitário";
-        BigDecimal precoUnitario = new BigDecimal("24.90");
-        BigDecimal quantidade = new BigDecimal("3");
-        BigDecimal percentualDesconto = new BigDecimal("0.10"); // 10%
+        System.out.print("Nome do produto: ");
+        String nomeProduto = scanner.nextLine();
+
+        System.out.print("Preço unitário (ex: 24.90): ");
+        BigDecimal precoUnitario = new BigDecimal(scanner.nextLine());
+
+        System.out.print("Quantidade: ");
+        BigDecimal quantidade = new BigDecimal(scanner.nextLine());
+
+        System.out.print("Percentual de desconto (ex: 0.10 para 10%): ");
+        BigDecimal percentualDesconto = new BigDecimal(scanner.nextLine());
 
         BigDecimal subtotal = precoUnitario.multiply(quantidade);
         BigDecimal valorDesconto = subtotal.multiply(percentualDesconto);
@@ -28,10 +37,13 @@ public class SistemaCaixa {
         BigDecimal total = subtotalComDesconto.add(valorTaxa)
                 .setScale(2, RoundingMode.HALF_UP);
 
-        System.out.println("Empresa: " + NOME_EMPRESA);
+        System.out.println();
+        System.out.println("=== Cupom de Venda ===");
         System.out.println("Produto: " + nomeProduto);
         System.out.println("Subtotal: R$ " + subtotal.setScale(2, RoundingMode.HALF_UP));
-        System.out.println("Desconto (10%): R$ " + valorDesconto.setScale(2, RoundingMode.HALF_UP));
+        System.out.println("Desconto: R$ " + valorDesconto.setScale(2, RoundingMode.HALF_UP));
         System.out.println("Total com taxa de serviço: R$ " + total);
+
+        scanner.close();
     }
 }
